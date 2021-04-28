@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".problem_details_1"
+    android:background="#000000"
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:text="Describe your problem breifly in 500 words"
+        android:fontFamily="sans-serif-condensed-medium"
+        />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine2"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:ems="10"
+        android:text="Enter here "
+        android:textColor="#ff00ff"
+        android:textSize="30sp"
+        android:background="@color/colorPrimary"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="100dp"
+        />
+
+
+</FrameLayout>

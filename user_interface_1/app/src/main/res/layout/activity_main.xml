@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/txtWelcome"
+        android:layout_width="410dp"
+        android:layout_height="55dp"
+
+
+        android:background="@color/colorPrimary"
+
+        android:text="___CONATACT___US______ "
+        android:textSize="24sp"
+        android:textSize="39sp"
+        android:textStle="bold/italic"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="675dp" />
+
+
+
+    <Button
+        android:id="@+id/btnhellow1112"
+        android:layout_width="410dp"
+        android:layout_height="55"
+        android:text="get best content"
+
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="55dp"
+         />
+
+    <TextView
+        android:id="@+id/btn1"
+        android:layout_width="410dp"
+        android:layout_height="58dp"
+
+
+        android:background="#e600e6"
+        android:text="_______TUTION_CLASS_______"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="0dp" />
+
+
+
+
+</android.support.constraint.ConstraintLayout>

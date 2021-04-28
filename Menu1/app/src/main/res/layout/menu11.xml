@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <item android:id="@+id/mic1"
+        android:icon="@drawable/mic"
+        android:title="mic"
+        android:text="item1"
+
+        />
+    <item android:id="@+id/mail"
+        android:icon="@drawable/mail"
+        android:title="Mail" />
+    <item android:id="@+id/search"
+        android:icon="@drawable/search"
+        android:title="search"
+        />
+</menu>
