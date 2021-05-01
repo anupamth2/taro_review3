@@ -20,12 +20,23 @@ public class problem_details_page extends AppCompatActivity {
             public void onClick(View view) {
                 problem_details_2 pb2=new problem_details_2();
                 FragmentManager fm=getSupportFragmentManager();
-                FragmentTransaction ft=fm.beginTransaction().addToBackStack( null );
+                FragmentTransaction ft=fm.beginTransaction();
                 ft.replace( R.id.my_fragment,pb2 );
                 ft.commit();
 
 
 
+            }
+        } );
+        Button b10=findViewById( R.id.button10 );
+        b10.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                problem_details_4 pb4=new problem_details_4();
+                FragmentManager fm=getSupportFragmentManager();
+                FragmentTransaction ft=fm.beginTransaction();
+                ft.replace( R.id.my_fragment,pb4 );
+                ft.commit();
             }
         } );
     }

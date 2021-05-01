@@ -7,16 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-
-import java.util.ArrayList;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link problem_details_2#newInstance} factory method to
+ * Use the {@link problem_details_4#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class problem_details_2 extends Fragment {
+public class problem_details_4 extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,10 +26,8 @@ public class problem_details_2 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public problem_details_2() {
+    public problem_details_4() {
         // Required empty public constructor
-
-
     }
 
     /**
@@ -39,11 +36,11 @@ public class problem_details_2 extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment problem_details_2.
+     * @return A new instance of fragment problem_details_4.
      */
     // TODO: Rename and change types and number of parameters
-    public static problem_details_2 newInstance(String param1, String param2) {
-        problem_details_2 fragment = new problem_details_2();
+    public static problem_details_4 newInstance(String param1, String param2) {
+        problem_details_4 fragment = new problem_details_4();
         Bundle args = new Bundle();
         args.putString( ARG_PARAM1, param1 );
         args.putString( ARG_PARAM2, param2 );
@@ -54,41 +51,21 @@ public class problem_details_2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-
-
-
-
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString( ARG_PARAM1 );
             mParam2 = getArguments().getString( ARG_PARAM2 );
         }
     }
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       // static_data st=new static_data();
-      //  EditText ed=(EditText)getView().findViewById( R.id.edit1 );
-        View view=inflater.inflate( R.layout.fragment_problem_details_2, container, false );
-        EditText ed=(EditText)view.findViewById( R.id.edit1 );
+        View view= inflater.inflate( R.layout.fragment_problem_details_4, container, false );
+        ListView L11=(ListView)view.findViewById( R.id.l1 );
         static_data st=new static_data();
-        ArrayList<String > arr=new ArrayList<>(  );
-        String s1=" ";
-        for(int i=0;i<st.s.length;i++)
-        {
-            arr.add(st.s[i]);
-            s1+=st.s[i];
-            s1+="\n";
-
-
-        }
-
-       // ed.setText( s1 );
-        return view;
+        ArrayAdapter<String > arrayAdapter=new ArrayAdapter<String>( getContext(),R.layout.support_simple_spinner_dropdown_item,st.s );
+        L11.setAdapter( arrayAdapter );
+        return  view;
     }
 }

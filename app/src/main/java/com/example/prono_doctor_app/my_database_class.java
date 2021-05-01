@@ -10,6 +10,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class my_database_class extends SQLiteOpenHelper {
     public my_database_class(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -124,6 +125,37 @@ public class my_database_class extends SQLiteOpenHelper {
 
 
         Log.d("database","welcome "+count);
+
+    }
+    int write_in_patient(String Name,String password,String  age,String city,String state,String mob)
+    {
+        //        String s2="CREATE TABLE PATIENT(PATIENT_ID INTEGER PRIMARY KEY,
+        //        PASSWORD VARCHAR,NAME VARCHAR,AGE INTEGER,
+        //        CITY VARCHAR,TYPE VARCHAR,HISTORY_OF_DISEASE
+        //        VARCHAR,DOCTOR_ID_1 INTEGER,FOREIGN KEY(DOCTOR_ID_1) REFERENCES DOCTOR(DOCTOR_ID));";
+        ContentValues cn=new ContentValues(  );
+        Random random=new Random(  );
+        int kk= random.nextInt(10000);
+        cn.put( "PATIENT_ID",kk );
+        cn.put( "PASSWORD",password );
+        cn.put( "NAME",Name );
+        cn.put( "AGE",Integer.parseInt( age ) );
+        cn.put( "CITY",city );
+        cn.put( "TYPE",mob );
+        cn.put("HISTORY_OF_DISEASE",state);
+        cn.put("DOCTOR_ID_1",0);
+        try
+        {
+            SQLiteDatabase database=this.getWritableDatabase();
+            database.insertWithOnConflict( "PATIENT",null,cn,SQLiteDatabase.CONFLICT_REPLACE );
+            return 1;
+        }
+        catch (Exception e)
+        {
+            Log.d("database"," "+e);
+            return  0;
+        }
+
 
     }
     void read_database_patient()
