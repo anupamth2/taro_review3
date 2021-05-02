@@ -32,12 +32,15 @@
         android:layout_marginTop="200dp"
         android:inputType="textMultiLine" />
 
+
+
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/button14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-
-        android:text="Button" />
+        android:text="save"
+        android:layout_marginTop="250dp"
+        android:layout_marginLeft="50dp"
+        />
 
 </FrameLayout>

@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         //mydb.read_database_doctor();
         //mydb.read_database_patient();
         //mydb.read_database_disease();
-        Intent in =new Intent( this,patient_register_page.class );
+        Intent in =new Intent( this,problem_details_page.class );
         startActivity( in );
 
 

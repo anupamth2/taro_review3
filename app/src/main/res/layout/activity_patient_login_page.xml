@@ -27,6 +27,7 @@
 
         />
     <EditText
+        android:id="@+id/ed1"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -39,13 +40,13 @@
         android:background="@color/colorPrimary"
         android:layout_marginTop="200dp"
         android:layout_marginLeft="80dp"
-        android:text="enter username"
+        android:text="enter mobile no"
         android:textColor="#ffffff"
         android:paddingLeft="9dp"
         />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/ed2"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
@@ -66,6 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log in"
+        android:onClick="validate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.247"
@@ -78,6 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign up"
+        android:onClick="sign_up_page"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.637"

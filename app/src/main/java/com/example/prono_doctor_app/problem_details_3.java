@@ -4,9 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import static com.example.prono_doctor_app.static_data.fragment_1_data;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +29,8 @@ public class problem_details_3 extends Fragment {
 
     public problem_details_3() {
         // Required empty public constructor
+
+        Log.d("tableffffffff","my data"+fragment_1_data);
     }
 
     /**

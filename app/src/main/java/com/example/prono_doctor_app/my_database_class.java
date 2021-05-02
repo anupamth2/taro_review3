@@ -158,6 +158,33 @@ public class my_database_class extends SQLiteOpenHelper {
 
 
     }
+    int verify_patient_login(String s1,String s2)
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        ArrayList<String> arr=new ArrayList<>(  );
+        try {
+
+            Cursor r = db.rawQuery( "select * from patient where type=? and password=?", new String[]{s1, s2} );
+            if(r.moveToFirst());
+            {
+                do{
+                    arr.add(Integer.toString(r.getInt( 0 )));
+
+                }while (r.moveToNext());
+            }
+            Log.d("database","we got array of size "+arr.size());
+            if(arr.size()>0)
+            return 1;
+            return 0;
+        }
+        catch (Exception e)
+        {
+            Log.d("database","there are some error "+e);
+            return  0;
+        }
+       // String  s="Select * from patient where type=? and password=? ",
+
+    }
     void read_database_patient()
     {
         SQLiteDatabase db=this.getWritableDatabase();
