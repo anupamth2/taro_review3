@@ -1,5 +1,6 @@
 package com.example.prono_doctor_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import static com.example.prono_doctor_app.static_data.fragment_4_data;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,6 +71,17 @@ public class problem_details_4 extends Fragment {
         static_data st=new static_data();
         ArrayAdapter<String > arrayAdapter=new ArrayAdapter<String>( getContext(),R.layout.support_simple_spinner_dropdown_item,st.s );
         L11.setAdapter( arrayAdapter );
+        L11.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText( getContext(),"you have clicked on "+i,Toast.LENGTH_SHORT).show();
+                fragment_4_data=Integer.toString( i );
+                Intent in =new Intent( getContext(),problem_details_page.class );
+                in.putExtra( "destination",2 );
+                startActivity( in );
+
+            }
+        } );
         return  view;
     }
 }

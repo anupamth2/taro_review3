@@ -1,5 +1,6 @@
 package com.example.prono_doctor_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -75,6 +76,9 @@ public class problem_details_1 extends Fragment {
              String ss=ed.getText().toString();
              fragment_1_data=ss;
              Log.d("tablefffffff"," F "+fragment_1_data);
+                Intent in =new Intent( getContext(),problem_details_page.class );
+                in.putExtra( "destination",3 );
+                startActivity( in );
 
             }
         } );

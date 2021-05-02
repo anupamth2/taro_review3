@@ -1,5 +1,6 @@
 package com.example.prono_doctor_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,9 +8,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static com.example.prono_doctor_app.static_data.fragment_2_data;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,18 +80,27 @@ public class problem_details_2 extends Fragment {
        // static_data st=new static_data();
       //  EditText ed=(EditText)getView().findViewById( R.id.edit1 );
         View view=inflater.inflate( R.layout.fragment_problem_details_2, container, false );
-        EditText ed=(EditText)view.findViewById( R.id.edit1 );
-        static_data st=new static_data();
-        ArrayList<String > arr=new ArrayList<>(  );
-        String s1=" ";
-        for(int i=0;i<st.s.length;i++)
-        {
-            arr.add(st.s[i]);
-            s1+=st.s[i];
-            s1+="\n";
+        final EditText ed=(EditText)view.findViewById( R.id.edit1 );
+        Button b14=view.findViewById( R.id.button14 );
+        b14.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String s=ed.getText().toString();
+                if(s.equals( "Enter here" ))
+                {
+                    Toast.makeText( getContext(),"enter valid details ",Toast.LENGTH_SHORT ).show();
+                    return;
+                }
+                else
+                {
+                    fragment_2_data=s;
+                    Intent in=new Intent( getContext(),problem_details_page.class );
+                    in.putExtra( "destination",4 );
+                    startActivity( in );
+                }
+            }
+        } );
 
-
-        }
 
        // ed.setText( s1 );
         return view;
