@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".problem_details_page"></activity>
+        <activity android:name=".docto_scedule_page"></activity>
+        <activity android:name=".problem_details_page" />
         <activity android:name=".patient_register_page" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld

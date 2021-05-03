@@ -19,7 +19,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:text="ANY OTHER DETAILS YOU WANT SHARE WITH DOCTOR LIKE BLOOD TEST REPORT,SUGAR TEST ETC" />
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/edit333"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:ems="10"
@@ -33,10 +33,10 @@
 
     <Button
         android:id="@+id/button9"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="250dp"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="350dp"
         android:text="SAVE" />
 </FrameLayout>

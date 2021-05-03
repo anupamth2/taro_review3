@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -43,6 +44,35 @@ public class my_database_class extends SQLiteOpenHelper {
 
 
     }
+    int write_in_disease_table(int id,String detail1,String details2,String details3,String details4)
+    {
+     //        String s3="CREATE TABLE DISEASE
+        //        (DISEASE_ID INTEGER PRIMARY KEY, DOCTOR_ID_2 INTEGER,PATIENT_ID_2 INTEGER,
+        //        DETAILS_1 VARCHAR,DETAILS_2 VARCHAR,DETAILS_3 VARCHAR,
+        //        EMERGENCY INTEGER,REMARK VARCHAR
+                SQLiteDatabase mydb=this.getWritableDatabase();
+                ContentValues cn=new ContentValues(  );
+                cn.put( "DISEASE_ID",id);
+                cn.put( "DOCTOR_ID_2",0 );
+                cn.put(  "PATIENT_ID_2",0);
+                cn.put("EMERGENCY",Integer.parseInt( detail1 ));
+                cn.put( "REMARK","NA" );
+                cn.put( "DETAILS_1",details2 );
+                cn.put( "DETAILS_2",details3 );
+                cn.put( "DETAILS_3",details4 );
+                try
+                {
+                    mydb.insertWithOnConflict( "disease",null,cn,SQLiteDatabase.CONFLICT_REPLACE );
+                    Log.d("database","successfully inserted into database");
+                    return 1;
+                }
+                catch (Exception e)
+                {
+                    Log.d("database","we got some error ");
+                    return 0;
+                }
+    }
+
     int write_in_doctor_table(String s1,String s2,String s3,String s4,String s5,String s6,String s7,String s8,String s9,String s10)
     {
         SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
