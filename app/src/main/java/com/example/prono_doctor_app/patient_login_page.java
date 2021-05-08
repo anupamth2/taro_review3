@@ -41,11 +41,15 @@ public class patient_login_page extends AppCompatActivity {
             if(kk1==1)
             {
                 Toast.makeText(this,"login successfully",Toast.LENGTH_SHORT ).show();
+                Intent in = new Intent( getApplicationContext(),problem_details_page.class );
+                in.putExtra( "patient_id",s1 );
+                in.putExtra( "destination",1 );
+                startActivity( in );
 
             }
             else
             {
-                Toast.makeText( this,"unsuccessfully",Toast.LENGTH_SHORT ).show();
+                Toast.makeText( this,"login failed ",Toast.LENGTH_SHORT ).show();
             }
 
         }

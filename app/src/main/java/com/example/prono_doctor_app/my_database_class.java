@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.example.prono_doctor_app.static_data.fragment_4_data;
+
 public class my_database_class extends SQLiteOpenHelper {
     public my_database_class(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super( context, "sql_database4", factory, version );
@@ -26,6 +28,7 @@ public class my_database_class extends SQLiteOpenHelper {
 
         String s3="CREATE TABLE DISEASE(DISEASE_ID INTEGER PRIMARY KEY, DOCTOR_ID_2 INTEGER,PATIENT_ID_2 INTEGER,DETAILS_1 VARCHAR,DETAILS_2 VARCHAR,DETAILS_3 VARCHAR,EMERGENCY INTEGER,REMARK VARCHAR,FOREIGN KEY(DOCTOR_ID_2) REFERENCES DOCTOR(DOCTOR_ID),FOREIGN KEY(PATIENT_ID_2) REFERENCES PATIENT(PATIENT_ID));";
         String s4 ="CREATE TABLE SCHEDULE(SCHEDULE_ID INTEGER PRIMARY KEY,DAYS VARCHAR,START_TIME VARCHAR,END_TIME VARCHAR,DOCTOR_ID_3 INTEGER,PATIENT_ID_3 INTEGER,DISEASE_TYPE VARCHAR,DISEASE_ID_3 INTEGER,FOREIGN KEY(DOCTOR_ID_3) REFERENCES DOCTOR(DOCTOR_ID),FOREIGN KEY(PATIENT_ID_3) REFERENCES PATIENT(PATIENT_ID),FOREIGN KEY(DISEASE_ID_3) REFERENCES DISEASE(DISEASE_ID));";
+
         Log.d("database","we are executing ");
 
         try {
@@ -44,17 +47,60 @@ public class my_database_class extends SQLiteOpenHelper {
 
 
     }
-    int write_in_disease_table(int id,String detail1,String details2,String details3,String details4)
+    String s4 ="CREATE TABLE SCHEDULE(SCHEDULE_ID INTEGER PRIMARY KEY," +
+            "DAYS VARCHAR," +
+            "START_TIME VARCHAR,END_TIME VARCHAR," +
+            "DOCTOR_ID_3 INTEGER,PATIENT_ID_3 INTEGER," +
+            "DISEASE_TYPE VARCHAR,DISEASE_ID_3 INTEGER";
+    int write_in_schedule_table(int id,String days,String start_time,String end_time,int doc_id,String no_of_pat)
+    {
+        SQLiteDatabase mydb=this.getWritableDatabase();
+        ContentValues cn=new ContentValues(  );
+        cn.put( "SCHEDULE_ID",id );
+        cn.put( "DAYS",days );
+        cn.put( "START_TIME",start_time );
+        cn.put( "END_TIME",end_time );
+        cn.put( "DOCTOR_ID_3",doc_id );
+        cn.put("PATIENT_ID_3",0);
+        cn.put( "DISEASE_TYPE","NA" );
+        cn.put( "DISEASE_ID_3",0 );
+        try{
+            mydb.insertWithOnConflict( "SCHEDULE",null,cn,SQLiteDatabase.CONFLICT_REPLACE );
+            schedule_id sched_id=new schedule_id( days,start_time,end_time,Integer.parseInt( no_of_pat ),fragment_4_data,doc_id ) ;
+            firebase_class fb=new firebase_class();
+            int k44=fb.brodcast_schedule( sched_id );
+
+
+            Log.d("database","successful write in schedule ");
+            return 1;
+        }
+        catch (Exception e)
+        {
+            Log.d("database","failed to write in schedudle");
+            return 0;
+        }
+    }
+
+    int write_in_disease_table(int id,String detail1,String details2,String details3,String details4,String patient_id)
     {
      //        String s3="CREATE TABLE DISEASE
         //        (DISEASE_ID INTEGER PRIMARY KEY, DOCTOR_ID_2 INTEGER,PATIENT_ID_2 INTEGER,
         //        DETAILS_1 VARCHAR,DETAILS_2 VARCHAR,DETAILS_3 VARCHAR,
         //        EMERGENCY INTEGER,REMARK VARCHAR
+        int patient_id_;
+        try{
+            patient_id_=Integer.parseInt( patient_id );
+
+        }catch (Exception e)
+        {
+            patient_id_=0;
+
+        }
                 SQLiteDatabase mydb=this.getWritableDatabase();
                 ContentValues cn=new ContentValues(  );
                 cn.put( "DISEASE_ID",id);
                 cn.put( "DOCTOR_ID_2",0 );
-                cn.put(  "PATIENT_ID_2",0);
+                cn.put(  "PATIENT_ID_2",patient_id_);
                 cn.put("EMERGENCY",Integer.parseInt( detail1 ));
                 cn.put( "REMARK","NA" );
                 cn.put( "DETAILS_1",details2 );
@@ -63,6 +109,10 @@ public class my_database_class extends SQLiteOpenHelper {
                 try
                 {
                     mydb.insertWithOnConflict( "disease",null,cn,SQLiteDatabase.CONFLICT_REPLACE );
+                    disease_details did=new disease_details( detail1,details2,details3,details4 );
+                    firebase_class fb=new firebase_class();
+                    int kkt=fb.broadcast_disease( did );
+
                     Log.d("database","successfully inserted into database");
                     return 1;
                 }
@@ -94,9 +144,13 @@ public class my_database_class extends SQLiteOpenHelper {
         cn.put("DISEASE_ID_1",Integer.parseInt( s10 ));
 
 
+
         try
         {
             sqLiteDatabase.insertWithOnConflict( "DOCTOR",null,cn,SQLiteDatabase.CONFLICT_REPLACE );
+            doctor_details doc_details=new doctor_details( s8,s3,s6,s7,s4 );
+            firebase_class fb=new firebase_class();
+            int k33=fb.broadcast_doctor( doc_details );
             return 1;
         }
         catch (Exception e)
@@ -178,6 +232,9 @@ public class my_database_class extends SQLiteOpenHelper {
         {
             SQLiteDatabase database=this.getWritableDatabase();
             database.insertWithOnConflict( "PATIENT",null,cn,SQLiteDatabase.CONFLICT_REPLACE );
+            patient_details patientDetails=new patient_details( mob,Name,Integer.parseInt( age ),city,state );
+            firebase_class fb=new firebase_class();
+            int kk1=fb.broadcast_patient( patientDetails );
             return 1;
         }
         catch (Exception e)
@@ -187,6 +244,33 @@ public class my_database_class extends SQLiteOpenHelper {
         }
 
 
+    }
+    int verify_doctor_login(String s1,String s2)
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        ArrayList<String> arr= new ArrayList<>(  );
+        try
+        {
+            Cursor r=db.rawQuery( "select * from doctor where DOCTOR_ID=? and password=?",new String[]{s1,s2} );
+            if(r.moveToFirst())
+            {
+                do{
+                    arr.add(Integer.toString( r.getInt( 0 ) ));
+                }while(r.moveToNext());
+
+            }
+            Log.d("database","we got the arraysize of doctor "+arr.size());
+            if(arr.size()>0)
+                return 1;
+            return 0;
+
+
+        }
+        catch (Exception e)
+        {
+            Log.d("database"," falied to verify ");
+            return 0;
+        }
     }
     int verify_patient_login(String s1,String s2)
     {

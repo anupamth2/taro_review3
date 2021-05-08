@@ -18,6 +18,7 @@ import static com.example.prono_doctor_app.static_data.fragment_1_data;
 import static com.example.prono_doctor_app.static_data.fragment_2_data;
 import static com.example.prono_doctor_app.static_data.fragment_3_data;
 import static com.example.prono_doctor_app.static_data.fragment_4_data;
+import static com.example.prono_doctor_app.static_data.patient_id_for_problem_details;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,10 +86,11 @@ public class problem_details_3 extends Fragment {
                 String s2=fragment_2_data;
                 String s3=fragment_3_data;
                 String s4=fragment_4_data;
+                String patient_id=patient_id_for_problem_details;
                 Random random=new Random(  );
                 int id=random.nextInt(10000);
                 my_database_class mydb=new my_database_class( getContext(),"ff",null,1 );
-                int k=mydb.write_in_disease_table( id,fragment_4_data,fragment_1_data,fragment_2_data,fragment_3_data );
+                int k=mydb.write_in_disease_table( id,fragment_4_data,fragment_1_data,fragment_2_data,fragment_3_data,patient_id_for_problem_details );
                 if(k==1)
                 {
                     Toast.makeText( getContext(),"successufully register in data base",Toast.LENGTH_SHORT ).show();

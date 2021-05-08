@@ -8,6 +8,7 @@ public class static_data {
     public  static String fragment_2_data;
     public  static String fragment_3_data;
     public  static  String fragment_4_data;//for index
+    public  static String patient_id_for_problem_details;
 
 
 

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import static com.example.prono_doctor_app.static_data.patient_id_for_problem_details;
+
 public class problem_details_page extends AppCompatActivity {
 
     @Override
@@ -17,6 +19,8 @@ public class problem_details_page extends AppCompatActivity {
         setContentView( R.layout.activity_problem_details_page );
         //Button b8=findViewById( R.id.button8 );
         Intent in=getIntent();
+        String patient_id=in.getStringExtra( "patient_id" );
+        patient_id_for_problem_details=patient_id;
         int k=in.getIntExtra( "destination",1 );
         if(k==1)
         {

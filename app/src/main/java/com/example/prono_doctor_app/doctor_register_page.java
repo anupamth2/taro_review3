@@ -2,6 +2,7 @@ package com.example.prono_doctor_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -84,9 +85,17 @@ public class doctor_register_page extends AppCompatActivity {
                 //my_database_class.read_database_doctor();
 
                 if(k1==1)
-                    Log.d("doctor_register_page","successfull");
-                else
-                    Log.d("doctor_register_page","failed");
+                { Log.d("doctor_register_page","successfull");
+                Toast.makeText( getApplicationContext(),"Registered succesfully \n make note of id "+s1,Toast.LENGTH_LONG ).show();
+                    Intent in=new Intent( getApplicationContext(),Doctor_page.class );
+                    startActivity( in );
+
+                }
+
+                else {
+                    Log.d( "doctor_register_page", "failed" );
+                  Toast.makeText( getApplicationContext(),"Registation failed try again ",Toast.LENGTH_SHORT ).show();
+                }
 
 
 
