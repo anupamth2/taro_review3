@@ -150,11 +150,12 @@ public class firebase_class {
         } );
         Log.d("firebase_log"," my size"+arr+sss);
     }
-    void get_doctor_id_(final  int disease_id,ArrayList<String> ar)
+    void get_doctor_id_(final  int disease_id,final ArrayList<String> ar)
     {
         DatabaseReference mydb=FirebaseDatabase.getInstance().getReference();
         final ArrayList<String> my_doc_id=new ArrayList<>(  );
         for(int i=0;i<ar.size();i++) {
+            final int my_index=i;
             mydb.child( "probono_database" ).child( "schedule_details" ).child(ar.get( i )  ).get().addOnCompleteListener( new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -166,7 +167,7 @@ public class firebase_class {
                             String my_doctor_id=( Integer.toString(scheduleId.doctor_id));
                             String type=did.type;
                             Log.d("firebase_log"," it my did "+did.details3+" "+scheduleId.doctor_id);
-                            Boolean t=check_the_doctor_type(disease_id,scheduleId.doctor_id,type);
+                            Boolean t=check_the_doctor_type(ar.get( my_index ),disease_id,scheduleId.doctor_id,type);
 
 
                         }
@@ -181,7 +182,7 @@ public class firebase_class {
             } );
         }
     }
-    Boolean check_the_doctor_type(final int disease_id,final int id, final String type)
+    Boolean check_the_doctor_type(final String schedule_id_2,final int disease_id,final int id, final String type)
     {
         DatabaseReference my_db22=FirebaseDatabase.getInstance().getReference();
         String id1;
@@ -221,7 +222,7 @@ public class firebase_class {
                         Log.d("my_log"," he e "+tp+" d d "+typee);
                         if(typee.equals( tp ))
                         {
-                            Log.d("my_log","the sechdule is made for "+typee+" "+disease_id+" "+id+" ");
+                            Log.d("my_log","the sechdule is made for "+typee+" disease id  "+disease_id+" doctor id "+id+" at time id "+schedule_id_2);
                         }
                     }
                 }
