@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import static com.example.prono_doctor_app.static_data.fragment_1_data;
+import static com.example.prono_doctor_app.static_data.patient_id_for_problem_details;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +79,7 @@ public class problem_details_1 extends Fragment {
              Log.d("tablefffffff"," F "+fragment_1_data);
                 Intent in =new Intent( getContext(),problem_details_page.class );
                 in.putExtra( "destination",3 );
+                in.putExtra( "patient_id",patient_id_for_problem_details );
                 startActivity( in );
 
             }

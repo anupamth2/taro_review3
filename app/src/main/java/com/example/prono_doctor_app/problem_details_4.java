@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import static com.example.prono_doctor_app.static_data.fragment_4_data;
+import static com.example.prono_doctor_app.static_data.patient_id_for_problem_details;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +79,7 @@ public class problem_details_4 extends Fragment {
                 fragment_4_data=Integer.toString( i );
                 Intent in =new Intent( getContext(),problem_details_page.class );
                 in.putExtra( "destination",2 );
+                in.putExtra( "patient_id",patient_id_for_problem_details );
                 startActivity( in );
 
             }

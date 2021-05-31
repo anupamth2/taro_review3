@@ -1,12 +1,12 @@
 package com.example.prono_doctor_app;
 
 public class schedule_id {
-    String days;
-    String start_time;
-    String end_time;
-    int no_of_patient;
-    String type;
-    int doctor_id;
+    public String days;
+    public String start_time;
+    public String end_time;
+    public int no_of_patient;
+    public String type;
+    public int doctor_id;
     public schedule_id(String days,String start_time,String end_time,int no_of_patient,String type,int doctor_id )
     {
         this.days=days;
@@ -15,5 +15,9 @@ public class schedule_id {
         this.no_of_patient=no_of_patient;
         this.type=type;
         this.doctor_id=doctor_id;
+    }
+    public  schedule_id()
+    {
+
     }
 }

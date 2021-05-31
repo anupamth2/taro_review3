@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -64,11 +63,14 @@ public class my_database_class extends SQLiteOpenHelper {
         cn.put("PATIENT_ID_3",0);
         cn.put( "DISEASE_TYPE","NA" );
         cn.put( "DISEASE_ID_3",0 );
+        String dd="";
+        dd+=days.charAt( 0 );
+
         try{
             mydb.insertWithOnConflict( "SCHEDULE",null,cn,SQLiteDatabase.CONFLICT_REPLACE );
-            schedule_id sched_id=new schedule_id( days,start_time,end_time,Integer.parseInt( no_of_pat ),fragment_4_data,doc_id ) ;
+            schedule_id sched_id=new schedule_id( dd,start_time,end_time,Integer.parseInt( no_of_pat ),fragment_4_data,doc_id ) ;
             firebase_class fb=new firebase_class();
-            int k44=fb.brodcast_schedule( sched_id );
+            int k44=fb.brodcast_schedule( id,sched_id );
 
 
             Log.d("database","successful write in schedule ");
@@ -76,7 +78,7 @@ public class my_database_class extends SQLiteOpenHelper {
         }
         catch (Exception e)
         {
-            Log.d("database","failed to write in schedudle");
+            Log.d("database","failed to write in schedudle "+e);
             return 0;
         }
     }
@@ -111,7 +113,7 @@ public class my_database_class extends SQLiteOpenHelper {
                     mydb.insertWithOnConflict( "disease",null,cn,SQLiteDatabase.CONFLICT_REPLACE );
                     disease_details did=new disease_details( detail1,details2,details3,details4 );
                     firebase_class fb=new firebase_class();
-                    int kkt=fb.broadcast_disease( did );
+                    int kkt=fb.broadcast_disease(id, did );
 
                     Log.d("database","successfully inserted into database");
                     return 1;
@@ -123,7 +125,7 @@ public class my_database_class extends SQLiteOpenHelper {
                 }
     }
 
-    int write_in_doctor_table(String s1,String s2,String s3,String s4,String s5,String s6,String s7,String s8,String s9,String s10)
+    int write_in_doctor_table(String s1,String s8,String s2,String s3,String s4,String s5,String s6,String s7,String s9,String s10)
     {
         SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
         ContentValues cn =new ContentValues(  );
@@ -137,7 +139,12 @@ public class my_database_class extends SQLiteOpenHelper {
         cn.put( "PASSWORD",s2 );
         cn.put("CITY",s3);
         cn.put("SPECIALITY",s4);
-        cn.put("NO_OF_EXPERIENCE",Integer.parseInt( s5));
+        try {
+            cn.put( "NO_OF_EXPERIENCE", Integer.parseInt( s5 ) );
+        }catch (Exception e)
+        {
+            cn.put(  "NO_OF_EXPERIENCE",0);
+        }
         cn.put("ADDRESS",s6);
         cn.put("MOBILE_NO",s7);
         cn.put( "PATIENT_ID_1",Integer.parseInt( s9 ) );
@@ -150,7 +157,7 @@ public class my_database_class extends SQLiteOpenHelper {
             sqLiteDatabase.insertWithOnConflict( "DOCTOR",null,cn,SQLiteDatabase.CONFLICT_REPLACE );
             doctor_details doc_details=new doctor_details( s8,s3,s6,s7,s4 );
             firebase_class fb=new firebase_class();
-            int k33=fb.broadcast_doctor( doc_details );
+            int k33=fb.broadcast_doctor( doc_details,Integer.parseInt( s1 ) );
             return 1;
         }
         catch (Exception e)
@@ -234,7 +241,7 @@ public class my_database_class extends SQLiteOpenHelper {
             database.insertWithOnConflict( "PATIENT",null,cn,SQLiteDatabase.CONFLICT_REPLACE );
             patient_details patientDetails=new patient_details( mob,Name,Integer.parseInt( age ),city,state );
             firebase_class fb=new firebase_class();
-            int kk1=fb.broadcast_patient( patientDetails );
+            int kk1=fb.broadcast_patient(mob, patientDetails );
             return 1;
         }
         catch (Exception e)

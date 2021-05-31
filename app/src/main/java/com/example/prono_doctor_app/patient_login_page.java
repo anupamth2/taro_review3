@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import static com.example.prono_doctor_app.static_data.patient_id_for_problem_details;
+
 public class patient_login_page extends AppCompatActivity {
 
     EditText ed1;
@@ -40,6 +42,7 @@ public class patient_login_page extends AppCompatActivity {
             int kk1=my_db.verify_patient_login( s1,s2 );
             if(kk1==1)
             {
+                //patient_id_for_problem_details=s1;
                 Toast.makeText(this,"login successfully",Toast.LENGTH_SHORT ).show();
                 Intent in = new Intent( getApplicationContext(),problem_details_page.class );
                 in.putExtra( "patient_id",s1 );

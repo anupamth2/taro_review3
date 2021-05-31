@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import static com.example.prono_doctor_app.static_data.fragment_2_data;
+import static com.example.prono_doctor_app.static_data.patient_id_for_problem_details;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -96,6 +97,7 @@ public class problem_details_2 extends Fragment {
                     fragment_2_data=s;
                     Intent in=new Intent( getContext(),problem_details_page.class );
                     in.putExtra( "destination",4 );
+                    in.putExtra( "patient_id",patient_id_for_problem_details );
                     startActivity( in );
                 }
             }

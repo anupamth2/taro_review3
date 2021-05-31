@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,6 +22,8 @@ public class problem_details_page extends AppCompatActivity {
         Intent in=getIntent();
         String patient_id=in.getStringExtra( "patient_id" );
         patient_id_for_problem_details=patient_id;
+        Log.d("patient_id5"," "+patient_id);
+
         int k=in.getIntExtra( "destination",1 );
         if(k==1)
         {

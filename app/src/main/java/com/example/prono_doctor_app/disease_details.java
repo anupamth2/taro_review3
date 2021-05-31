@@ -3,11 +3,11 @@ package com.example.prono_doctor_app;
 import static com.example.prono_doctor_app.static_data.patient_id_for_problem_details;
 
 public class disease_details {
-    String type;
-    String details1;
-    String details2;
-    String details3;
-    int patient_id;
+    public String type;
+    public String details1;
+    public String details2;
+    public String details3;
+    public int patient_id;
     public disease_details(String type,String details1,String details2,String details3)
     {
         this.type=type;
@@ -23,6 +23,10 @@ public class disease_details {
         {
             this.patient_id=0;
         }
+
+    }
+    public disease_details()
+    {
 
     }
 }

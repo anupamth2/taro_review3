@@ -1,11 +1,11 @@
 package com.example.prono_doctor_app;
 
 public class patient_details {
-    String mob_no;
-    String Name;
-    int age;
-    String city;
-    String state;
+    public String mob_no;
+    public String Name;
+    public int age;
+    public String city;
+    public String state;
     //int problem_id;
     public patient_details(String mob_no,String Name,int age,String city,String state)
     {
@@ -16,6 +16,10 @@ public class patient_details {
         this.state=state;
        // this.problem_id=problem_details_id;
 
+
+    }
+    public patient_details()
+    {
 
     }
 }
