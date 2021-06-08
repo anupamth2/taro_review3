@@ -47,16 +47,14 @@ public class patient_register_page extends AppCompatActivity {
                     if(k==1)
                     {
                         Toast.makeText( getApplicationContext(),"succesfull registered ",Toast.LENGTH_SHORT ).show();
-                        Intent in =new Intent( getApplicationContext(),patient_login_page.class );
 
-
-                        startActivity( in );
                     }
                     else
                     {
                         Toast.makeText( getApplicationContext(),"Registration failed,try again",Toast.LENGTH_SHORT ).show();
 
                     }
+
 
                 }
 

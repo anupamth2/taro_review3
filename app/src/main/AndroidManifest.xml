@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".docto_scedule_page"></activity>
+        <activity android:name=".Remark_page_1"></activity>
+        <activity android:name=".arrange_meeting_class" />
+        <activity android:name=".docto_scedule_page" />
         <activity android:name=".problem_details_page" />
         <activity android:name=".patient_register_page" />
         <!--

@@ -12,7 +12,10 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.crypto.AEADBadTagException;
+
 import static com.example.prono_doctor_app.static_data.fragment_4_data;
+import static com.example.prono_doctor_app.static_data.s;
 
 public class my_database_class extends SQLiteOpenHelper {
     public my_database_class(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -309,14 +312,33 @@ public class my_database_class extends SQLiteOpenHelper {
     void read_database_patient()
     {
         SQLiteDatabase db=this.getWritableDatabase();
-        String s2="INSERT INTO PATIENT VALUES (576829,\"5478\",\"RAM PRASAD\",50,\"VA\",\"Cardiologists\",\"YES\",1154324366); ";
-        String s3="INSERT INTO PATIENT VALUES (576830,\"5832\",\"MOHAN DAS\",40,\"MS\",\"Pulmonologists\",\"NO\",1720081854); ";
-        String s4="INSERT INTO PATIENT VALUES (576831,\"7633\",\"RAMAN MOHAN \",63,\"PA\",\"Pulmonologists\",\"YES\",1861495988); ";
-        String s5="INSERT INTO PATIENT VALUES (576832,\"5532\",\"PRATEEK\",25,\"PA\",\"Neurologists\",\"NO\",1134122161); ";
-
+        //String s2="INSERT INTO PATIENT VALUES (576829,\"5478\",\"RAM PRASAD\",50,\"VA\",\"Cardiologists\",\"YES\",1154324366); ";
+        //String s3="INSERT INTO PATIENT VALUES (576830,\"5832\",\"MOHAN DAS\",40,\"MS\",\"Pulmonologists\",\"NO\",1720081854); ";
+        //String s4="INSERT INTO PATIENT VALUES (576831,\"7633\",\"RAMAN MOHAN \",63,\"PA\",\"Pulmonologists\",\"YES\",1861495988); ";
+        //String s5="INSERT INTO PATIENT VALUES (576832,\"5532\",\"PRATEEK\",25,\"PA\",\"Neurologists\",\"NO\",1134122161); ";
+        String command="select * from patient;";
+        ArrayList<String > patient_array=new ArrayList<>(  );
         try{
-            db.execSQL( s5 );
-            Log.d("database","successfully inserted in database");
+            Cursor cr=db.rawQuery( command ,null);
+            if(cr.moveToFirst())
+            {
+                do{
+                    patient_array.add(Integer.toString( cr.getInt( 0 ) ));
+                    patient_array.add(cr.getString( 1 ));
+                    patient_array.add(cr.getString( 2 ));
+                    //patient_array.add( cr.getString( 3 ) );
+                    patient_array.add( Integer.toString(cr.getInt( 3 ) ) );
+                    patient_array.add(cr.getString( 4 ));
+                    patient_array.add( cr.getString( 5 ) );
+                    patient_array.add(cr.getString( 6 ));
+                    patient_array.add( Integer.toString( cr.getInt( 7 ) ) );
+
+
+
+                }while(cr.moveToNext());
+
+            }
+            Log.d("database","successfully inserted in database "+patient_array );
 
         }catch (Exception e)
         {
@@ -328,15 +350,33 @@ public class my_database_class extends SQLiteOpenHelper {
     void read_database_disease()
     {
         SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
-        String s1="INSERT INTO DISEASE VALUES(32849,1154324366,576829,\"NA\",\"NA\",\"NA\",0,\"NA\");";
-        String s2="INSERT INTO DISEASE VALUES(32850,1720081854,576830,\"NA\",\"NA\",\"NA\",0,\"NA\");";
-        String s3="INSERT INTO DISEASE VALUES(32851,1861495988,576831,\"NA\",\"NA\",\"NA\",0,\"NA\");";
-        String s4="INSERT INTO DISEASE VALUES(32852,1134122161,576832,\"NA\",\"NA\",\"NA\",0,\"NA\");";
+       // String s1="INSERT INTO DISEASE VALUES(32849,1154324366,576829,\"NA\",\"NA\",\"NA\",0,\"NA\");";
+        //String s2="INSERT INTO DISEASE VALUES(32850,1720081854,576830,\"NA\",\"NA\",\"NA\",0,\"NA\");";
+        //String s3="INSERT INTO DISEASE VALUES(32851,1861495988,576831,\"NA\",\"NA\",\"NA\",0,\"NA\");";
+        //String s4="INSERT INTO DISEASE VALUES(32852,1134122161,576832,\"NA\",\"NA\",\"NA\",0,\"NA\");";
         try {
-            sqLiteDatabase.execSQL( s2 );
-            sqLiteDatabase.execSQL( s3 );
-            sqLiteDatabase.execSQL( s4 );
-            Log.d("database","succesffuly inserted in disease database");
+            String qer="select * from disease;";
+            //sqLiteDatabase.execSQL( s2 );
+            //sqLiteDatabase.execSQL( s3 );
+            //sqLiteDatabase.execSQL( s4 );
+            ArrayList<String > arr=new ArrayList<>(  );
+            Cursor cursor=sqLiteDatabase.rawQuery( qer,null  );
+            if(cursor.moveToFirst())
+            {
+                do{
+                   arr.add(Integer.toString( cursor.getInt( 0 ) ));
+                   arr.add(Integer.toString( cursor.getInt( 1 ) ));
+                   arr.add( Integer.toString( cursor.getInt( 2 ) ) );
+                   arr.add( cursor.getString( 3 ) );
+                   arr.add( cursor.getString( 4 ) );
+                   arr.add( cursor.getString( 5 ) );
+                   arr.add( Integer.toString( 6 ) );
+                   arr.add( cursor.getString( 7 ));
+
+                }while (cursor.moveToNext());
+
+            }
+            Log.d("database","succesffuly inserted in disease database "+arr);
         }
         catch (Exception e)
         {
@@ -344,6 +384,70 @@ public class my_database_class extends SQLiteOpenHelper {
         }
 
     }
+    void read_schedule_table()
+    {
+        String s4 ="CREATE TABLE SCHEDULE(SCHEDULE_ID INTEGER PRIMARY KEY,DAYS VARCHAR,STAR" +
+                "T_TIME VARCHAR,END_TIME VARCHAR,DOCTOR_ID_3 INTEGER,PATIENT_ID_3 INTEGE" +
+                "R,DISEASE_TYPE VARCHAR,DISEASE_ID_3 INTEGER,FOREIGN KEY(DOCTOR_ID_3)" +
+                " REFERENCES DOCTOR(DOCTOR_ID),FOREIGN KEY(PATIENT_ID_3) REFERENCES" +
+                " PATIENT(PATIENT_ID),FOREIGN KEY(DISEASE_ID_3) REFERENCES DISEASE(DISEASE_ID));";
+        String command="select * from schedule;";
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+        ArrayList<String > my_array=new ArrayList<>(  );
+        try
+        {
+            Cursor cr=sqLiteDatabase.rawQuery( command,null );
+            if(cr.moveToFirst())
+            {
+                do{
+                    my_array.add(Integer.toString( cr.getInt( 0 ) ));
+                    my_array.add(cr.getString( 1 ));
+                    my_array.add(cr.getString( 2 ));
+                    my_array.add(cr.getString( 3 ));
+                    my_array.add(Integer.toString( cr.getInt( 4 ) ));
+                    my_array.add(Integer.toString( cr.getInt( 5 ) ));
+                    my_array.add(cr.getString( 6 ));
+                    my_array.add(Integer.toString( cr.getInt(7 ) ));
+
+                }while(cr.moveToNext());
+            }
+            Log.d("database"," the schedule  "+my_array);
+        }
+        catch (Exception e)
+        {
+            Log.d("database","we found error "+e);
+        }
+    }
+    ArrayList<String> get_all_patient_id()
+    {
+        ArrayList<String > arr=new ArrayList<>(  );
+        String r="5444";
+        String command="select DISEASE_ID from disease where DISEASE_ID>"+r+";";
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+        ArrayList<String > my_array=new ArrayList<>(  );
+        try
+        {
+            Cursor cr=sqLiteDatabase.rawQuery( command,null );
+            if(cr.moveToFirst())
+            {
+                do{
+
+                    my_array.add(Integer.toString( cr.getInt(0 ) ));
+
+                }while(cr.moveToNext());
+            }
+            Log.d("database"," the schedule  "+my_array);
+        }
+        catch (Exception e)
+        {
+            Log.d("database","we found error "+e);
+        }
+        return  my_array;
+
+    }
+
+
+
 
 
 

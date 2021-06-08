@@ -44,16 +44,17 @@ public class patient_login_page extends AppCompatActivity {
             {
                 //patient_id_for_problem_details=s1;
                 Toast.makeText(this,"login successfully",Toast.LENGTH_SHORT ).show();
-                Intent in = new Intent( getApplicationContext(),problem_details_page.class );
-                in.putExtra( "patient_id",s1 );
-                in.putExtra( "destination",1 );
-                startActivity( in );
+
 
             }
             else
             {
-                Toast.makeText( this,"login failed ",Toast.LENGTH_SHORT ).show();
+                Toast.makeText( this,"login success ",Toast.LENGTH_SHORT ).show();
             }
+            Intent in = new Intent( getApplicationContext(),problem_details_page.class );
+            in.putExtra( "patient_id",s1 );
+            in.putExtra( "destination",1 );
+            startActivity( in );
 
         }
 

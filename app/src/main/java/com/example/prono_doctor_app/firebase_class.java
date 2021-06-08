@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.Random;
 import java.util.function.LongFunction;
 
 public class firebase_class {
@@ -223,6 +224,7 @@ public class firebase_class {
                         if(typee.equals( tp ))
                         {
                             Log.d("my_log","the sechdule is made for "+typee+" disease id  "+disease_id+" doctor id "+id+" at time id "+schedule_id_2);
+                            arrange_meeting(typee,disease_id,id,schedule_id_2);
                         }
                     }
                 }
@@ -234,6 +236,48 @@ public class firebase_class {
             Log.d("my_log","we fot error "+e);
         }
         return true;
+
+    }
+    public void arrange_meeting(String type,int disease_id_4,int doctor_id_4,String schedule_id_4)
+    {
+        int schedule_id_int=1;
+        String  pat=static_data.patient_id_for_problem_details;
+        int patient_id_4=123;
+        try{
+            //patient_id_4=Integer.parseInt( pat );
+            schedule_id_int=Integer.parseInt( schedule_id_4 );
+        }
+        catch (Exception e)
+        {
+            //patient_id_4=123;
+            schedule_id_int=1;
+        }
+        DatabaseReference my_db=FirebaseDatabase.getInstance().getReference();
+        try
+        {
+            //my_db.child( "probono_database" ).child( "patient_details" ).child( pat ).
+            Random random =new Random(  );
+            int rand=random.nextInt(10000);
+
+            my_db.child("probono_database").child( "Appointment" ).child( Integer.toString( rand )).child( "patient_id" ).setValue( pat );
+            my_db.child("probono_database").child( "Appointment" ).child( Integer.toString( rand )).child( "doctor_id" ).setValue( Integer.toString( doctor_id_4 ) );
+            my_db.child("probono_database").child( "Appointment" ).child( Integer.toString( rand )).child( "schedule_id" ).setValue(schedule_id_4);
+            my_db.child("probono_database").child( "Appointment" ).child( Integer.toString( rand )).child( "disease_id" ).setValue( Integer.toString( disease_id_4 ) );
+            my_db.child("probono_database").child( "Appointment_doctor" ).child( Integer.toString( doctor_id_4 )).child( Integer.toString(rand) ).child( "patient_id" ).setValue( pat );
+            my_db.child("probono_database").child( "Appointment_doctor" ).child( Integer.toString( doctor_id_4 )).child( Integer.toString(rand) ).child( "doctor_id" ).setValue( Integer.toString( doctor_id_4 ) );
+            my_db.child("probono_database").child( "Appointment_doctor" ).child( Integer.toString( doctor_id_4 )).child( Integer.toString(rand) ).child( "schedule_id" ).setValue(schedule_id_4);
+            my_db.child("probono_database").child( "Appointment_doctor" ).child( Integer.toString( doctor_id_4 )).child( Integer.toString(rand) ).child( "disease_id" ).setValue( Integer.toString( disease_id_4 ) );
+            my_db.child("probono_database").child( "Appointment_patient" ).child( pat).child( Integer.toString(rand) ).child( "patient_id" ).setValue( pat );
+            my_db.child("probono_database").child( "Appointment_patient" ).child( pat).child( Integer.toString(rand) ).child( "doctor_id" ).setValue( Integer.toString( doctor_id_4 ) );
+            my_db.child("probono_database").child( "Appointment_patient" ).child( pat).child( Integer.toString(rand) ).child( "schedule_id" ).setValue(schedule_id_4);
+            my_db.child("probono_database").child( "Appointment_patient" ).child( pat).child( Integer.toString(rand) ).child( "disease_id" ).setValue( Integer.toString( disease_id_4 ) );
+            Log.d("my_log","succesffuly appoint madde");
+        }
+        catch (Exception e)
+        {
+            Log.d("my_log","appointment failed");
+
+        }
 
     }
     Boolean check_the_doctor_type2(int id, String type) {
